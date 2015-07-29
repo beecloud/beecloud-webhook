@@ -1,51 +1,52 @@
-#Webhook开发指南
-##应用场景
+# <a name="webhook">BeeCloud Webhook开发指南</a>
+## <a name="application">应用场景</a>
 
-完成支付/退款后,BeeCloud将通过主动推送的方式将支付/退款信息推送给BeeCloud用户指定的url。  
+在BeeCloud获得渠道的确认信息（包括支付结果，退款结果）后，会通过主动推送的方式将确认信息推送给客户的server。如果客户需要接收此类信息来实现业务逻辑，需要开通公网可以访问的IP地址和端口，按以下格式接受BeeCloud Webhook服务器发起的POST请求。支持HTTP或者HTTPS，如果需要对传输内容加密，请开通HTTPS的接口接收Webhook回调请求。
 
-注意:**同一条订单可能会发送多条webhook消息，例如前几条的状态是在等待用户支付，最后一条支付成功， 也有可能同一条订单收到多条成功的消息**
+**注意：同一条订单可能会发送多条webhook消息，例如前几条的状态是在等待用户支付，最后一条支付成功， 也有可能同一条订单收到多条成功的消息，建议仅对同一个订单的第一条支付成功的消息做处理，同一个订单的重复的支付成功的消息应该被忽略（可能由于渠道推送重试导致）。退款同理。**
 
-##推送机制
+## <a name="push">推送机制</a>
 
-BeeCloud在收到渠道的确认结果后将信息主动推送到BeeCloud用户指定的url，如果用户url返回值非success则会在一定时间间隔后重试推送，返回正确处理该通知的信息(success)则停止。
+用户提供符合BeeCloud notify接口标准的API，BeeCloud在收到渠道的确认结果后1秒，2秒，4秒，8秒，...，2^17秒（约36小时）主动通知客户server，直到客户server返回正确处理该通知的信息为止。
 
-BeeCloud采用1秒，2秒，4秒...2^17秒(约36h)的时间间隔递增规则, 推送间隔达到最大2^17之后将不再推送。
+## <a name="interfaces">推送接口标准</a>
 
-##推送信息
-###HTTP Header
-
-```
+```python
 HTTP请求类型 : POST
-数据格式 : application/json
+数据格式 : JSON
 ```
 
-###信息通用字段说明
+## <a name="specification">字段说明</a>
 
 
   Key             | Type          | Example
 -------------     | ------------- | -------------
-  sign            | string        | 32位小写
-  timestamp       | long          | 1426817510111
-  channelType     | string        | 'WX' or 'ALI' or 'UN'
-  transactionType | string        | 'PAY' or 'REFUND'
-  messageDetail   | map(json)     | {orderId:xxxx}
-  tradeSuccess    | boolean       | true/false
-  optional        | map(json)     |
+  sign            | String        | 32位小写
+  timestamp       | Long          | 1426817510111
+  channelType     | String        | 'WX' or 'ALI' or 'UN'
+  transactionType | String        | 'PAY' or 'REFUND'
+  transactionId   | String        | '201506101035040000001'
+  transactionFee  | Integer       | 1 表示0.01元
+  tradeSuccess    | Boolean       | true/false
+  messageDetail   | Map(JSON)     | {orderId:xxxx}
+  optional        | Map(JSON)     | {"agentId":"Alice"}
 
 
-###通用参数含义
+## <a name="meaning">参数含义</a>
 
-key | value
+key  | value
 ---- | -----
 sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确请返回fail
 timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
 channelType| WX/ALI/UN   分别代表微信/支付宝/银联
 transactionType| PAY/REFUND  分别代表支付和退款的结果确认
+transactionId | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no
+transactionFee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
+tradeSuccess | 交易类型的时候会有， 此参数为true代表支付成功， 当此参数为false时不代表支付失败，可能后续会发送为true的消息，建议用户拿此参数为true做业务开关
 messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
-tradeSuccess | transactionType为”PAY“的时该字段存在， 此参数为true代表订单状态已转变为支付成功， 但此参数为false时仅代表为”还未确认支付成功“而不是”支付失败“
-optional| {} 客户在发起购买或者退款操作时添加的附加信息，JSON格式
+optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
-###messageDetail样例 
+## <a name="messageDetail">messageDetail样例</a> 
 1.**支付宝:**
 
 ```
@@ -172,10 +173,11 @@ optional| {} 客户在发起购买或者退款操作时添加的附加信息，J
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
 
-##webhook处理并返回结果
+## <a name="result">返回结果</a>
+
 返回"success"字符串代表正确接收并确认了结果，其他所有返回都代表需要继续重传。
 
-##Webhook设置
+# <a name="config">设置Webhook</a>
 在"控制台->应用->设置->xx支付"中
 
 1. 设置并保存Webhook
