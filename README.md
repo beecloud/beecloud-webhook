@@ -185,3 +185,12 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 2. 点击"验证"按钮，验证你的webhook能否正确处理sign签名验证
 
 ![webhook-01](http://beeclouddoc.qiniudn.com/webhook-02.png)
+
+
+## 联系我们
+- 如果有什么问题，可以到QQ群 **321545822** BeeCloud开发者大联盟 提问
+- 如果发现了bug，欢迎提交[issue](https://github.com/beecloud/beecloud-rest-api/issues)
+- 如果有新的需求，欢迎提交[issue](https://github.com/beecloud/beecloud-rest-api/issues)
+
+## 代码许可
+The MIT License (MIT).
