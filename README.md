@@ -1,23 +1,23 @@
-## <a name="webhook">BeeCloud Webhook开发指南</a>
+# BeeCloud Webhook开发指南
 
-### <a name="application">应用场景</a>
+## 应用场景
 
 在BeeCloud获得渠道的确认信息（包括支付结果，退款结果）后，会通过主动推送的方式将确认信息推送给客户的server。如果客户需要接收此类信息来实现业务逻辑，需要开通公网可以访问的IP地址和端口，按以下格式接受BeeCloud Webhook服务器发起的POST请求。支持HTTP或者HTTPS，如果需要对传输内容加密，请开通HTTPS的接口接收Webhook回调请求。
 
-**注意：同一条订单可能会发送多条webhook消息，例如前几条的状态是在等待用户支付，最后一条支付成功， 也有可能同一条订单收到多条成功的消息，建议仅对同一个订单的第一条支付成功的消息做处理，同一个订单的重复的支付成功的消息应该被忽略（可能由于渠道推送重试导致）。退款同理。**
+>注意：同一条订单可能会发送多条webhook消息，例如前几条的状态是在等待用户支付，最后一条支付成功， 也有可能同一条订单收到多条成功的消息，建议仅对同一个订单的第一条支付成功的消息做处理，同一个订单的重复的支付成功的消息应该被忽略（可能由于渠道推送重试导致）。退款同理。
 
-### <a name="push">推送机制</a>
+## 推送机制
 
 用户提供符合BeeCloud notify接口标准的API，BeeCloud在收到渠道的确认结果后1秒，2秒，4秒，8秒，...，2^17秒（约36小时）主动通知客户server，直到客户server返回正确处理该通知的信息为止。
 
-### <a name="interfaces">推送接口标准</a>
+## 推送接口标准
 
 ```python
 HTTP请求类型 : POST
 数据格式 : JSON
 ```
 
-### <a name="specification">字段说明</a>
+## 字段说明
 
 
   Key             | Type          | Example
@@ -33,7 +33,7 @@ HTTP请求类型 : POST
   optional        | Map(JSON)     | {"agentId":"Alice"}
 
 
-### <a name="meaning">参数含义</a>
+## 参数含义
 
 key  | value
 ---- | -----
@@ -47,7 +47,7 @@ tradeSuccess | 交易类型的时候会有， 此参数为true代表支付成功
 messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
-### <a name="messageDetail">messageDetail样例</a> 
+## messageDetail样例 
 1.**支付宝:**
 
 ```
@@ -174,11 +174,11 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
 
-### <a name="result">返回结果</a>
+## 返回结果
 
 返回"success"字符串代表正确接收并确认了结果，其他所有返回都代表需要继续重传。
 
-# <a name="config">设置Webhook</a>
+## 设置Webhook
 在"控制台->应用->设置->xx支付"中
 
 1. 设置并保存Webhook
