@@ -188,7 +188,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 
 
 ## 联系我们
-- 如果有什么问题，可以到QQ群 **321545822** BeeCloud开发者大联盟 提问
+- 如果有什么问题，可以到QQ群 **321545822** 或 **427128840** BeeCloud开发者大联盟 提问
 - 如果发现了bug，欢迎提交[issue](https://github.com/beecloud/beecloud-webhook/issues)
 - 如果有新的需求，欢迎提交[issue](https://github.com/beecloud/beecloud-webhook/issues)
 
