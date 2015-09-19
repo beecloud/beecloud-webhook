@@ -13,9 +13,6 @@
 
 请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的写法。
 
-
-
-
 ## 应用场景
 
 在BeeCloud获得渠道的确认信息（包括支付结果，退款结果）后，会通过主动推送的方式将确认信息推送给客户的server。如果客户需要接收此类信息来实现业务逻辑，需要开通公网可以访问的IP地址和端口，按以下格式接受BeeCloud Webhook服务器发起的POST请求。支持HTTP或者HTTPS，如果需要对传输内容加密，请开通HTTPS的接口接收Webhook回调请求。
@@ -203,6 +200,10 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 
 ![webhook-01](http://beeclouddoc.qiniudn.com/webhook-02.png)
 
+## 官方文档地址
+
+BeeCloud Webhook文档的官方GitHub地址是 [https://github.com/beecloud/beecloud-webhook](https://github.com/beecloud/beecloud-webhook)
+
 ## 联系我们
 - 如果有什么问题，可以到BeeCloud开发者1群:**321545822** 或 BeeCloud开发者2群:**427128840** 提问
 - 如果发现了bug，欢迎提交[issue](https://github.com/beecloud/beecloud-webhook/issues)
@@ -210,7 +211,3 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 
 ## 代码许可
 The MIT License (MIT).
-
-## 官方文档地址
-
-BeeCloud Webhook文档的官方GitHub地址是 [https://github.com/beecloud/beecloud-webhook](https://github.com/beecloud/beecloud-webhook)
