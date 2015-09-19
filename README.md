@@ -2,7 +2,19 @@
 
 ## 简介
 
-BeeCloud Webhook文档的官方GitHub地址是 [https://github.com/beecloud/beecloud-webhook](https://github.com/beecloud/beecloud-webhook)
+通过BeeCloud SDK以及秒支付Button发起的支付完成或者状态更新时,BeeCloud将向用户在BeeCloud的"控制台->设置->webhook"中指定的url发送支付状态数据。用户可以根据该支付状态数据，结合自身数据库内记录的订单信息做相应的处理。
+
+## 样例代码
+目前BeeCloud提供获取webhook消息的各语言代码样例：  
+[PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
+[.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
+[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/notify_url.jsp)  
+[Python DEMO with tornado](https://github.com/beecloud/beecloud-python/blob/master/demo/webhook.py)
+
+请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的写法。
+
+
+
 
 ## 应用场景
 
@@ -50,6 +62,10 @@ transactionFee | 交易金额，是以分为单位的整数，对应支付请求
 tradeSuccess | 交易类型的时候会有， 此参数为true代表支付成功， 当此参数为false时不代表支付失败，可能后续会发送为true的消息，建议用户拿此参数为true做业务开关
 messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
+
+## 处理消息后给BeeCloud返回结果
+
+用户返回"success"字符串给BeeCloud代表正确接收并确认了结果，其他所有返回都代表需要继续重传。
 
 ## messageDetail样例 
 1.**支付宝:**
@@ -178,9 +194,6 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
 
-## 返回结果
-
-返回"success"字符串代表正确接收并确认了结果，其他所有返回都代表需要继续重传。
 
 ## 设置Webhook
 在"控制台->应用->设置->xx支付"中
@@ -197,3 +210,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 
 ## 代码许可
 The MIT License (MIT).
+
+## 官方文档地址
+
+BeeCloud Webhook文档的官方GitHub地址是 [https://github.com/beecloud/beecloud-webhook](https://github.com/beecloud/beecloud-webhook)
