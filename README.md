@@ -65,7 +65,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 用户返回"success"字符串给BeeCloud代表正确接收并确认了结果，其他所有返回都代表需要继续重传。
 
 ## messageDetail样例 
-1.**支付宝:**
+1.**支付宝 (ALI):**
 
 ```
 "messageDetail":{
@@ -115,7 +115,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   use_coupon  |	String  |  N	|  买家是否使用了红包  （N/Y)
 
 
-2.**银联：**
+2.**银联 (UN)：**
 
 ```
 "messageDetail":{
@@ -156,7 +156,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   respMsg    |  String |  Success! | 交易返回信息  Success!  代表成功
   
 
-3.**微信：**
+3.**微信 (WX)：**
 
 ```
 "messageDetail":{
@@ -191,7 +191,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
 
-4.**快钱：**
+4.**快钱 (KUAIQIAN)：**
 
 ```
 "messageDetail":{
@@ -233,7 +233,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   payAmount    |  String |  10 |  订单实际支付金额
   errCode    |  String |  4 |  错误代码
   
-5.**京东：**
+5.**京东 (JD)：**
 
 ```
 "messageDetail":{
