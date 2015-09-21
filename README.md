@@ -37,7 +37,7 @@ HTTP请求类型 : POST
 -------------     | ------------- | -------------
   sign            | String        | 32位小写
   timestamp       | Long          | 1426817510111
-  channelType     | String        | 'WX' or 'ALI' or 'UN'
+  channelType     | String        | 'WX' or 'ALI' or 'UN'or'KUAIQIAN'or'JD'
   transactionType | String        | 'PAY' or 'REFUND'
   transactionId   | String        | '201506101035040000001'
   transactionFee  | Integer       | 1 表示0.01元
@@ -191,6 +191,49 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
 
+4.**快钱：**
+
+```
+"messageDetail":{
+"payResult":"10",
+"merchantAcctId":"1001213884201",
+"orderId":"d48c05c0f7f04e42ac589af0348ee040",
+"dealId":"31030713",
+"fee":"",
+"language":"1",
+"version":"mobile1.0",
+"bankDealId":"150921923960",
+"bindMobile":"1366926",
+"bankId":"BOC",
+"payType":"21-1",
+"orderTime":"20150921114432",
+"orderAmount":"1",
+"dealTime":"20150921114600",
+"payAmount":"1"
+"tradeSuccess":true,
+"errCode":"",
+"signType":"4",
+"bindCard":"6217907388",
+"signMsg":"hd1b3n3H/CVxy/oqLKo8q+p2OEOyT"
+"ext2":"",
+"ext1":"",
+}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  payResult        | String     | 10 | 支付结果，“10”代码支付成功
+  orderId	|	String 	|	d48c05c0f7f04e42ac589af0348ee040   |    商户订单号
+  dealId	|	String	|	31030713	|	快钱系统中的交易号
+  orderTime     |   String  |    20150921114432  |   快钱订单提交时间，格式yyyymmddhhMMss
+  orderAmount   |  String |  10 |   商户订单金额，单位是分
+  dealTime    |  String |  20150921114600 |  快钱对交易的处理时间，格式yyyymmddhhMMss
+  payAmount    |  String |  10 |  订单实际支付金额
+  tradeSuccess    |  Boolean |  true |  订单成功标志
+  errCode    |  String |  4 |  错误代码
+  
 
 ## 设置Webhook
 在"控制台->应用->设置->xx支付"中
