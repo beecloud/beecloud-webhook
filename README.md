@@ -231,8 +231,48 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   orderAmount   |  String |  10 |   商户订单金额，单位是分
   dealTime    |  String |  20150921114600 |  快钱对交易的处理时间，格式yyyymmddhhMMss
   payAmount    |  String |  10 |  订单实际支付金额
-  tradeSuccess    |  Boolean |  true |  订单成功标志
   errCode    |  String |  4 |  错误代码
+  
+5.**京东：**
+
+```
+"messageDetail":{
+"CURRENCY":"CNY",
+"CARDHOLDERNAME":"*俊",
+"CARDHOLDERID":"**************8888",
+"PAYAMOUNT":"2",
+"TIME":"152337",
+"DESC":"成功",
+"DATE":"20150921",
+"STATUS":"0",
+"CODE":"0000",
+"CARDHOLDERMOBILE":"138****8888",
+"BANKCODE":"BOC",
+"AMOUNT":"2",
+"tradeSuccess":true,
+"NOTE":"买矿泉水",
+"ID":"159f69842fad43e3b3c2770130a2da75"
+"CARDTYPE":"DEBIT_CARD",
+"REMARK":"",
+"TYPE":"S",
+"CARDNO":"621790****8888",
+
+}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  PAYAMOUNT        | String     | 2 | 支付金额，单位是分，退款时无此字段
+  DATE	|	String 	|	20150921   |    交易时间，格式yyyyMMdd
+  TIME	|	String	|	152337	|	交易时间，格式HHmmss
+  STATUS     |   String  |    0  |   交易返回码 0：状态成功，3：退款，4：部分退款，6：处理中，7：失败
+  CODE   |  String |  0000 |   交易返回码，0000代表交易成功
+  AMOUNT    |  String |  2|  交易金额，单位是分，一般和PAYAMOUNT相等，如果京东支付有满减活动，则为用户实际支付金额；退款时为退款金额
+  ID    |  String |  159f69842fad43e3b3c2770130a2da75 |  交易号；退款时为退款单号
+  OID    |  String |  159f69842fad43e3b3c2770130a2da75 |  原交易号，退款时才有，是指这笔退款在原来支付时候的订单号
+  TYPE    |  String |  S |  交易类型编码，S：支付，R：退款 
   
 
 ## 设置Webhook
