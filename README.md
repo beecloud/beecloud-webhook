@@ -37,7 +37,7 @@ HTTP请求类型 : POST
 -------------     | ------------- | -------------
   sign            | String        | 32位小写
   timestamp       | Long          | 1426817510111
-  channelType     | String        | 'WX' or 'ALI' or 'UN'or'KUAIQIAN'or'JD'
+  channelType     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD'
   transactionType | String        | 'PAY' or 'REFUND'
   transactionId   | String        | '201506101035040000001'
   transactionFee  | Integer       | 1 表示0.01元
@@ -52,7 +52,7 @@ key  | value
 ---- | -----
 sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确请返回fail
 timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
-channelType| WX/ALI/UN   分别代表微信/支付宝/银联
+channelType| WX/ALI/UN/KUAIQIAN/JD   分别代表微信/支付宝/银联/块钱/京东
 transactionType| PAY/REFUND  分别代表支付和退款的结果确认
 transactionId | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no
 transactionFee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
