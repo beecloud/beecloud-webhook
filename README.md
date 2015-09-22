@@ -147,8 +147,9 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
  
  Key             | 类型           | Example               | 含义
 -------------     | ------------- | -------------         | -------
-  traceNo        | String        | 510016 | 银联交易号
-  orderId	|	String 	|	test_no   |    商家内部交易号
+  queryId        | String        | 2015081216170048 | 银联交易流水号
+  traceNo       | String     | 510067 | 银联系统跟踪号
+  orderId	|	String 	|	2015081216171028   |    商家内部交易号
   txnTime    | String  | 20150528103823 | 交易创建时间
   txnAmt	|	String	|	1	|	商品总价，单位为分
   signature        |   String  |      |   银联签名串 ，商户可忽略
