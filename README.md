@@ -50,7 +50,7 @@ HTTP请求类型 : POST
 
 key  | value
 ---- | -----
-sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确请返回fail
+sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确不返回success即可
 timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
 channelType| WX/ALI/UN/KUAIQIAN/JD   分别代表微信/支付宝/银联/块钱/京东
 transactionType| PAY/REFUND  分别代表支付和退款的结果确认
