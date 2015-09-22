@@ -275,6 +275,145 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   TYPE    |  String |  S |  交易类型编码，S：支付，R：退款 
   
 
+6.**百度 (BD)：**
+
+```
+"messageDetail":{
+"order_no":"e599fad3d7e149abaa318b74166517d7",
+"bfb_order_no":"2015091010001399281110681948040",
+"input_charset":"1",
+"sign":"094fbaf6e3adea755cc0b06d65be2156",
+"sp_no":"1000139928",
+"unit_amount":"1",
+"bank_no":"",
+"transport_amount":"0",
+"version":"2",
+"bfb_order_create_time":"20150910143407",
+"pay_result":"1",
+"pay_time":"20150910143407",
+"fee_amount":"0",
+"buyer_sp_username":"",
+"total_amount":"1",
+"tradeSuccess":true,
+"extra":"",
+"sign_method":"1",
+"currency":"1",
+"pay_type":"2",
+"unit_count":"1"}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  order_no        | String     | e599fad3d7e149abaa318b74166517d7 | 商户订单号
+  bfb_order_no	|	String 	|	2015091010001399281110681948040   |    百度钱包交易号
+  sp_no	|	String	|	1000139928	|	百度钱包商户号
+  pay_result     |   String  |    1  |   支付结果代码 1：支付成功，2：等待支付，3：退款成功
+  total_amount   |  Integer |  1 |   总金额，以分为单位
+  pay_time   |  String |  20150910143407 |   支付时间
+  pay_type   |  String |  2 |   支付方式,1:余额支付;2:网银支付;3:银行网关支付
+   
+
+7.**贝宝 (PAYPAL)：**
+
+```
+"messageDetail":{
+"app_sign":"f0915474a6d3c6ceb55f89c76694d9a4",
+"timestamp":1441964975409,
+"title":"PayPal payment test",
+"total_fee":1,
+"optional":{"PayPal key2":"PayPal value2","PayPal key1":"PayPal value1"},
+"app_id":"c37d661d-7e61-49ea-96a5-68c34e83db3b",
+"bill_no":"8D876079M42176727KXZKHFQ",
+"channel":"PAYPAL_SANDBOX",
+"access_token":"Bearer A015qoqdOWu7gGpk-1SQxYHrO97rfe18ONMJALm4-m4LGgI",
+"currency":"USD",
+"tradeSuccess":true}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  access_token        | String     | Bearer A015qoqdOWu7gGpk-1SQxYHrO97rfe18ONMJALm4-m4LGgI | PAYPAL访问授权码
+  currency	|	String 	|	USD   |    币种
+  channel	|	String	|	PAYPAL_SANDBOX	|	贝宝沙箱支付或者真实支付
+
+
+8.**易宝网银 (YEE_WEB)：**
+
+```
+"messageDetail":{
+"r0_Cmd":"Buy",
+"rb_BankId":"BOCO-NET",
+"rp_PayDate":"20150912151013",
+"p1_MerId":"10012506312",
+"r3_Amt":"0.01",
+"r9_BType":"2",
+"r7_Uid":"",
+"rq_SourceFee":"0.0",
+"r5_Pid":"买矿泉水",
+"rq_TargetFee":"0.0",
+"r4_Cur":"RMB",
+"r6_Order":"bfea66381a6149009fba5d35e2f0cfbf",
+"r1_Code":"1",
+"tradeSuccess":true,
+"hmac":"4e37569abca34e4f1462568daaca9da6",
+"r2_TrxId":"118262251787405I",
+"ru_Trxtime":"20150912151043",
+"r8_MP":"c37d661d-7e61-49ea-96a5-68c34e83db3b:dc5582b0-8c54-4bf5-b70b-4694283d2aa7",
+"rq_CardNo":"",
+"ro_BankOrderId":"2843719202150912"}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  r0_Cmd        | String     | Buy | 业务类型,固定值：Buy 
+  p1_MerId	|	String 	|	10012506312   |    商户编号 
+  r3_Amt	|	String	|	0.01	|	支付金额 
+  r2_TrxId	|	String	|	118262251787405I	|	易宝交易流水号 
+  r6_Order	|	String	|	bfea66381a6149009fba5d35e2f0cfbf	|	商户订单号 
+  r1_Code	|	String	|	1	|	固定值：1 - 代表支付成功 
+  r8_MP	|	String	|	测试	|	商户扩展信息
+  r9_BType	|	String	|	2	|	通知类型 1 - 浏览器重定向；2 - 服务器点对点通讯
+  
+
+8.**易宝一键支付 (YEE_WAP)：**
+
+```
+"messageDetail":{
+"amount":1,
+"bank":"招商银行",
+"bankcode":"CMB",
+"cardtype":2,
+"lastno":"8530",
+"merchantaccount":"10000418926",
+"orderid":"1f74528ae33d478c8b64d8385357fbe0",
+"sign":"KlGQYOJP8fXY7cfximI7xuO8VG9F2wbXy28fijmaFXqvqc3IhskKiStLTlt1rVTpejhqAAA9n9SxVOjgEeRqjjOTJcX4rNexlVsr1eCsN7SPjt2+CA+9elEHBG/oflhbg4RzkmbWUqZ1Hiib2cHqxB1mj+RZtEgW1MqO6QLqpaY=",
+"status":1,
+"tradeSuccess":true,
+"yborderid":"411508290439050771"}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  amount        | Integer     | 1 | 订单金额,以「分」为单位
+  merchantaccount	|	String 	|	10000418926   |    商户编号 
+  orderid	|	String	|	1f74528ae33d478c8b64d8385357fbe0	|	商户订单号 
+  yborderid	|	Long	|	411508290439050771	|	易宝交易流水号 
+  status	|	Integer	|	1	|	订单状态.1：成功
+  bank	|	String	|	招商银行	|	支付卡所属银行的名称 
+  cardtype	|	Integer	|	2	|	支付卡的类型，1 为借记卡，2 为信用卡
+  lastno	|	String	|	8530	|	支付卡卡号后 4 位
+  
+
+
+  
 ## 设置Webhook
 在"控制台->应用->设置->xx支付"中
 
