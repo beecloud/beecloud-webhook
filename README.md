@@ -4,6 +4,8 @@
 
 通过BeeCloud SDK以及秒支付Button发起的支付完成或者状态更新时，BeeCloud将向用户在BeeCloud的"控制台->设置->webhook"中指定的url发送支付状态数据。用户可以根据该支付状态数据，结合自身数据库内记录的订单信息做相应的处理。
 
+>服务器间的交互,不像页面跳转同步通知可以在页面上显示出来,这种交互方式是不可见的。
+
 ## 样例代码
 目前BeeCloud提供获取webhook消息的各语言代码样例：  
 [PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
