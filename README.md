@@ -79,7 +79,6 @@ channelType| WX/ALI/UN/KUAIQIAN/JD   分别代表微信/支付宝/银联/块钱/
 transactionType| PAY/REFUND  分别代表支付和退款的结果确认
 transactionId | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no
 transactionFee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
-tradeSuccess | transactionType=PAY时存在该参数。为true代表支付成功； 为false时不代表支付失败，可能后续会发送为true的消息，建议用户拿此参数为true做业务开关
 messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
