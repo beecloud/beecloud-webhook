@@ -25,7 +25,7 @@ BeeCloud将向用户在BeeCloud的"控制台->设置->webhook"中指定的url发
 在BeeCloud获得渠道的确认信息（包括支付成功，退款成功）后，会通过主动推送的方式将确认消息推送给客户的server。如果客户需要接收此类消息来实现业务逻辑，需要:
 
 1. 开通公网可以访问的IP地址和端口
-2. 按以下格式接受BeeCloud Webhook服务器发起的POST请求。支持HTTP或者HTTPS，如果需要对传输内容加密，请开通HTTPS的接口接收Webhook回调请求。
+2. 接收BeeCloud Webhook服务器发起的HTTP POST请求报文。如果需要对传输加密，请使用支持HTTPS的webhook的url地址。
 
 >!!!注意：同一条订单可能会发送多条支付成功的webhook消息，这是由渠道触发的(比如渠道的重试)，同一个订单的重复的支付成功的消息**应该被忽略**。退款同理。
 
