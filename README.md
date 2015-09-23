@@ -66,10 +66,8 @@ HTTP Content-type : application/json
   transactionType | String        | 'PAY' or 'REFUND'
   transactionId   | String        | '201506101035040000001'
   transactionFee  | Integer       | 1 表示0.01元
-  tradeSuccess    | Boolean       | true/false
   messageDetail   | Map(JSON)     | {orderId:xxxx}
   optional        | Map(JSON)     | {"agentId":"Alice"}
-
 
 ## 参数含义
 
