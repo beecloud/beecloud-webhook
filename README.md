@@ -62,9 +62,9 @@ tradeSuccess | transactionType=PAY时存在该参数。为true代表支付成功
 messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
-## 处理消息后给BeeCloud返回结果
+## 处理状态数据后给BeeCloud返回结果
 
-用户返回"success"字符串给BeeCloud代表正确接收并确认了结果，其他所有返回都代表需要继续重传。
+用户返回"success"字符串给BeeCloud代表正确接收并确认了本次状态数据的结果，其他所有返回都代表需要继续重传本次的状态数据。
 
 ## messageDetail样例 
 1.**支付宝 (ALI):**
