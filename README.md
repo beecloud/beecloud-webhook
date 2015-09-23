@@ -2,7 +2,11 @@
 
 ## 简介
 
-通过BeeCloud SDK以及秒支付Button发起的支付完成或者状态更新时，BeeCloud将向用户在BeeCloud的"控制台->设置->webhook"中指定的url发送支付状态数据。用户可以根据该支付状态数据，结合自身数据库内记录的订单信息做相应的处理。
+通过BeeCloud SDK以及秒支付Button发起的如下操作时：
+1. 支付交易成功
+2. 退款成功
+
+BeeCloud将向用户在BeeCloud的"控制台->设置->webhook"中指定的url发送状态数据。用户可以根据该状态数据，结合自身系统内记录的订单信息做相应的处理。
 
 >服务器间的交互,不像页面跳转同步通知(REST api中bill的参数return_url指定)可以在页面上显示出来,这种交互方式是不可见的。
 
@@ -13,23 +17,41 @@
 [Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/notify_url.jsp)  
 [Python DEMO with tornado](https://github.com/beecloud/beecloud-python/blob/master/demo/webhook.py)
 
-请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的写法。
+>请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的读取写法。
 
 ## 应用场景
 
-在BeeCloud获得渠道的确认信息（包括支付结果，退款结果）后，会通过主动推送的方式将确认信息推送给客户的server。如果客户需要接收此类信息来实现业务逻辑，需要开通公网可以访问的IP地址和端口，按以下格式接受BeeCloud Webhook服务器发起的POST请求。支持HTTP或者HTTPS，如果需要对传输内容加密，请开通HTTPS的接口接收Webhook回调请求。
+在BeeCloud获得渠道的确认信息（包括支付成功，退款成功）后，会通过主动推送的方式将确认消息推送给客户的server。如果客户需要接收此类消息来实现业务逻辑，需要:
 
->注意：同一条订单可能会发送多条webhook消息，例如前几条的状态是在等待用户支付，最后一条支付成功， 也有可能同一条订单收到多条成功的消息，建议仅对同一个订单的第一条支付成功的消息做处理，同一个订单的重复的支付成功的消息应该被忽略（可能由于渠道推送重试导致）。退款同理。
+1. 开通公网可以访问的IP地址和端口
+2. 按以下格式接受BeeCloud Webhook服务器发起的POST请求。支持HTTP或者HTTPS，如果需要对传输内容加密，请开通HTTPS的接口接收Webhook回调请求。
+
+>!!!注意：同一条订单可能会发送多条支付成功的webhook消息，这是由渠道触发的(比如渠道的重试)，同一个订单的重复的支付成功的消息**应该被忽略**。退款同理。
 
 ## 推送机制
 
-用户提供符合BeeCloud notify接口标准的API，BeeCloud在收到渠道的确认结果后1秒，2秒，4秒，8秒，...，2^17秒（约36小时）主动通知客户server，直到客户server返回正确处理该通知的信息为止。
+BeeCloud在"收到渠道的确认结果"后的1秒时刻主动向用户server发送消息
+
+## 推送重试机制
+
+用户server接收到某条消息时如果未返回字符串"success", BeeCloud将认为此条消息未能被成功处理, 将触发推送重试机制：
+
+如果用户server一直未能返回字符串"success"，BeeCloud将在"收到渠道的确认结果"后的2秒，4秒，8秒，...，2^17秒（约36小时）时刻重发该条消息；如果在以上的某一时刻，用户server返回了字符串"success"则不再重发该消息 。
+
+>你可以理解为:第n次重发距离第n-1重发的时间间隔为2的n次方,其中第0次"重发"为1秒时刻第一次发送消息；某次重发时刻，用户server返回了"success"则停止重发
+
+>用户需要能够处理BeeCloud notify接口标准的数据
+
+## 处理消息后给BeeCloud返回结果
+
+用户返回"success"字符串给BeeCloud代表-"正确接收并确认了本次状态数据的结果"，其他所有返回都代表需要继续重传本次的状态数据。
 
 ## 推送接口标准
 
 ```python
-HTTP请求类型 : POST
-数据格式 : JSON
+HTTP 请求类型 : POST
+HTTP 数据格式 : JSON
+HTTP Content-type : application/json
 ```
 
 ## 字段说明
@@ -61,10 +83,6 @@ transactionFee | 交易金额，是以分为单位的整数，对应支付请求
 tradeSuccess | transactionType=PAY时存在该参数。为true代表支付成功； 为false时不代表支付失败，可能后续会发送为true的消息，建议用户拿此参数为true做业务开关
 messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
-
-## 处理状态数据后给BeeCloud返回结果
-
-用户返回"success"字符串给BeeCloud代表正确接收并确认了本次状态数据的结果，其他所有返回都代表需要继续重传本次的状态数据。
 
 ## messageDetail样例 
 1.**支付宝 (ALI):**
