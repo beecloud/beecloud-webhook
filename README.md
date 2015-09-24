@@ -430,7 +430,43 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   cardtype	|	Integer	|	2	|	支付卡的类型，1 为借记卡，2 为信用卡
   lastno	|	String	|	8530	|	支付卡卡号后 4 位
   
+9.**易宝点卡支付 (YEE_NOBANKCARD)：**
 
+```
+"messageDetail":{
+"r0_Cmd":"ChargeCardDirect",
+"p6_confirmAmount":"19.9",
+"p1_MerId":"10001126856",
+"p7_realAmount":"19.9",
+"pc_BalanceAct":"0111001507010658538",
+"r1_Code":"1",
+"p8_cardStatus":"0",
+"p5_CardNo":"0111001507010658538",
+"p3_Amt":"0.1",
+"tradeSuccess":true,
+"p2_Order":"201509240000000000010",
+"p4_FrpId":"TELECOM",
+"hmac":"a571d6c3796dda8f83b5ef717d59000d",
+"r2_TrxId":"516222232623803I",
+"pb_BalanceAmt":"19.8",
+"p9_MP":""}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  r1_Code        | String     | 1 | "1"代表支付成功，其他结果代表失败
+  p1_MerId	|	String 	|	10001126856   |    商户编号 
+  p2_Order	|	String	|	201509240000000000010	|	易宝支付返回商户订单号 
+  p3_Amt	|	String	|	0.1	|	成功金额， 单位是元，保留两位小数,不足两位小数的将保留一位!(如0.10 将返回 0.1,0 会返回 0.0)
+  p4_FrpId	|	String	|	TELECOM	|	支付方式，“TELECOM”代表电信卡
+  p5_CardNo	|	String	|	0111001507010658538	|	点卡卡号
+  p6_confirmAmount	|	String	|	19.9|	确认金额
+  p7_realAmount	|	String	|	19.9	|	实际金额
+  p8_cardStatus	|	String	|	0|	卡状态，0代表销卡成功，订单成功，其他为异常
+  pb_BalanceAmt	|	String	|	19.8	|	支付余额
+  pc_BalanceAct	|	String	|	0111001507010658538	|	余额卡号
 
   
 ## 设置Webhook
