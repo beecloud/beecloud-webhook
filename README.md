@@ -334,7 +334,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   pay_type   |  String |  2 |   支付方式,1:余额支付;2:网银支付;3:银行网关支付
    
 
-7.**贝宝 (PAYPAL)：**
+7.**PayPal (PAYPAL)：**
 
 ```
 "messageDetail":{
