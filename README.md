@@ -27,7 +27,7 @@ BeeCloud将向用户在BeeCloud的"控制台->设置->Webhook"中指定的URL发
 目前BeeCloud提供获取webhook消息的各语言代码样例：  
 [PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
 [.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
-[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/notify_url.jsp)  
+[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/notifyUrl.jsp)  
 [Python DEMO with tornado](https://github.com/beecloud/beecloud-python/blob/master/demo/webhook.py)
 
 >请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的读取写法。
