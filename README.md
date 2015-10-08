@@ -74,7 +74,7 @@ HTTP Content-type : application/json
 -------------     | ------------- | -------------
   sign            | String        | 32位小写
   timestamp       | Long          | 1426817510111
-  channelType     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD'
+  channelType     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL_LIVE' or 'PAYPAL_SANDBOX'
   transactionType | String        | 'PAY' or 'REFUND'
   transactionId   | String        | '201506101035040000001'
   transactionFee  | Integer       | 1 表示0.01元
@@ -369,7 +369,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 -------------     | ------------- | -------------         | -------
   access_token        | String     | Bearer A015qoqdOWu7gGpk-1SQxYHrO97rfe18ONMJALm4-m4LGgI | PAYPAL访问授权码
   currency	|	String 	|	USD   |    币种
-  channel	|	String	|	PAYPAL_SANDBOX	|	贝宝沙箱支付或者真实支付
+  channel	|	String	|	PAYPAL_SANDBOX	|	PAYPAL沙箱支付或者真实支付
 
 
 8.**易宝网银 (YEE_WEB)：**
