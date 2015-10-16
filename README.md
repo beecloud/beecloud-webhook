@@ -74,11 +74,11 @@ HTTP Content-type : application/json
 -------------     | ------------- | -------------
   sign            | String        | 32位小写
   timestamp       | Long          | 1426817510111
-  channelType     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL_LIVE' or 'PAYPAL_SANDBOX'
-  transactionType | String        | 'PAY' or 'REFUND'
-  transactionId   | String        | '201506101035040000001'
-  transactionFee  | Integer       | 1 表示0.01元
-  messageDetail   | Map(JSON)     | {orderId:xxxx}
+  channel_type     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL_LIVE' or 'PAYPAL_SANDBOX'
+  transaction_type | String        | 'PAY' or 'REFUND'
+  transaction_id   | String        | '201506101035040000001'
+  transaction_fee  | Integer       | 1 表示0.01元
+  message_detail   | Map(JSON)     | {orderId:xxxx}
   optional        | Map(JSON)     | {"agentId":"Alice"}
 
 ## 参数含义
@@ -87,11 +87,11 @@ key  | value
 ---- | -----
 sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确不返回success即可
 timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
-channelType| WX/ALI/UN/KUAIQIAN/JD   分别代表微信/支付宝/银联/快钱/京东
-transactionType| PAY/REFUND  分别代表支付和退款的结果确认
-transactionId | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no,对于秒支付button为传入的out_trade_no
-transactionFee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
-messageDetail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
+channel_type| WX/ALI/UN/KUAIQIAN/JD   分别代表微信/支付宝/银联/快钱/京东
+transaction_type| PAY/REFUND  分别代表支付和退款的结果确认
+transaction_id | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no,对于秒支付button为传入的out_trade_no
+transaction_fee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
+message_detail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
 ## messageDetail样例 
