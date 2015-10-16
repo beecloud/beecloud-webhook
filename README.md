@@ -94,11 +94,11 @@ transaction_fee | 交易金额，是以分为单位的整数，对应支付请�
 message_detail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
-## messageDetail样例 
+## message_detail样例 
 1.**支付宝 (ALI):**
 
 ```
-"messageDetail":{
+"message_detail":{
 "bc_appid":"test”,
 "discount":"0.00",
 "payment_type":"1",
@@ -148,7 +148,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 2.**银联 (UN)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "bizType":"000201",
 "orderId":"aa0c27e47b9e4ea1a595118ee0acf79f",
 "txnSubType":"01",
@@ -190,7 +190,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 3.**微信 (WX)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "transaction_id":"1006410636201505250163820565",
 "nonce_str":"441956259efc417291d904f90f76fd69",
 "bank_type":"CMB_CREDIT",
@@ -225,7 +225,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 4.**快钱 (KUAIQIAN)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "payResult":"10",
 "merchantAcctId":"1001213884201",
 "orderId":"d48c05c0f7f04e42ac589af0348ee040",
@@ -267,7 +267,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 5.**京东 (JD)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "CURRENCY":"CNY",
 "CARDHOLDERNAME":"*俊",
 "CARDHOLDERID":"**************8888",
@@ -309,7 +309,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 6.**百度 (BD)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "order_no":"e599fad3d7e149abaa318b74166517d7",
 "bfb_order_no":"2015091010001399281110681948040",
 "input_charset":"1",
@@ -349,7 +349,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 7.**PayPal (PAYPAL)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "app_sign":"f0915474a6d3c6ceb55f89c76694d9a4",
 "timestamp":1441964975409,
 "title":"PayPal payment test",
@@ -375,7 +375,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 8.**易宝网银 (YEE_WEB)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "r0_Cmd":"Buy",
 "rb_BankId":"BOCO-NET",
 "rp_PayDate":"20150912151013",
@@ -415,7 +415,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 8.**易宝一键支付 (YEE_WAP)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "amount":1,
 "bank":"招商银行",
 "bankcode":"CMB",
@@ -445,7 +445,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 9.**易宝点卡支付 (YEE_NOBANKCARD)：**
 
 ```
-"messageDetail":{
+"message_detail":{
 "r0_Cmd":"ChargeCardDirect",
 "p6_confirmAmount":"19.9",
 "p1_MerId":"10001126856",
