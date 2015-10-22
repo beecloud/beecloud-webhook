@@ -75,7 +75,7 @@ HTTP Content-type : application/json
   sign            | String        | 32位小写
   timestamp       | Long          | 1426817510111
   channel_type     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL'
-  sub_channel_type | String        | WX_APP or WX_NATIVE or WX_JSAPI or WX_SCAN or ALI_APP or ALI_SCAN or ALI_WEB or ALI_QRCODE or ALI_OFFLINE_QRCODE or ALI_WAP or UN_APP or UN_WEB or PAYPAL_SANDBOX or PAYPAL_LIVE or JD_WAP or JD_WEB or YEE_WAP or YEE_WEB or KUAIQIAN_WAP or KUAIQIAN_WEB or BD_APP or BD_WEB or BD_WAP	
+  sub_channel_type | String        | 'WX_APP' or 'WX_NATIVE' or 'WX_JSAPI' or 'WX_SCAN' or 'ALI_APP' or 'ALI_SCAN' or 'ALI_WEB' or 'ALI_QRCODE' or 'ALI_OFFLINE_QRCODE' or 'ALI_WAP' or 'UN_APP' or 'UN_WEB' or 'PAYPAL_SANDBOX' or 'PAYPAL_LIVE' or 'JD_WAP' or 'JD_WEB' or 'YEE_WAP' or 'YEE_WEB' or 'KUAIQIAN_WAP' or 'KUAIQIAN_WEB' or 'BD_APP' or 'BD_WEB' or 'BD_WAP'	
   transaction_type | String        | 'PAY' or 'REFUND'
   transaction_id   | String        | '201506101035040000001'
   transaction_fee  | Integer       | 1 表示0.01元
