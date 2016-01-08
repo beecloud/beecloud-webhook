@@ -78,7 +78,7 @@ HTTP Content-type : application/json
   sub_channel_type | String        | 'WX_APP' or 'WX_NATIVE' or 'WX_JSAPI' or 'WX_SCAN' or 'ALI_APP' or 'ALI_SCAN' or 'ALI_WEB' or 'ALI_QRCODE' or 'ALI_OFFLINE_QRCODE' or 'ALI_WAP' or 'UN_APP' or 'UN_WEB' or 'PAYPAL_SANDBOX' or 'PAYPAL_LIVE' or 'JD_WAP' or 'JD_WEB' or 'YEE_WAP' or 'YEE_WEB' or 'YEE_NOBANKCARD' or 'KUAIQIAN_WAP' or 'KUAIQIAN_WEB' or 'BD_APP' or 'BD_WEB' or 'BD_WAP'	
   transaction_type | String        | 'PAY' or 'REFUND' or 'TRANSFER'
   transaction_id   | String        | '201506101035040000001'
-  transaction_fee  | Integer       | 1 表示0.01元
+  transaction_fee  | Integer       | 1 表示0.01元 (当transaction_type为TRANSFER时无此字段)
   trade_success  | Bool       | true
   message_detail   | Map(JSON)     | {orderId:xxxx}
   optional        | Map(JSON)     | {"agentId":"Alice"}
@@ -90,7 +90,7 @@ key  | value
 sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确不返回success即可
 timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
 channel_type| WX/ALI/UN/KUAIQIAN/JD/BD/YEE/PAYPAL   分别代表微信/支付宝/银联/快钱/京东/百度/易宝/PAYPAL
-sub_channel_type|  代表以上各个渠道的子渠道，参看字段说明
+sub_channel\_type|  代表以上各个渠道的子渠道，参看字段说明
 transaction_type| PAY/REFUND  分别代表支付和退款的结果确认
 transaction_id | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no,对于秒支付button为传入的out_trade_no
 transaction_fee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
