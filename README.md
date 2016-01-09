@@ -81,7 +81,7 @@ HTTP Content-type : application/json
   transaction_fee  | Integer       | 1 表示0.01元 (当transaction_type为TRANSFER时无此字段)
   trade_success  | Bool       | true
   message_detail   | Map(JSON)     | {orderId:xxxx}
-  optional        | Map(JSON)     | {"agentId":"Alice"}
+  optional        | Map(JSON)     | {"agent_id":"Alice"}
 
 ## 参数含义
 
