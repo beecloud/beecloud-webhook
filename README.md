@@ -483,7 +483,45 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   p8_cardStatus	|	String	|	0|	卡状态，0代表销卡成功，订单成功，其他为异常
   pb_BalanceAmt	|	String	|	19.8	|	支付余额
   pc_BalanceAct	|	String	|	0111001507010658538	|	余额卡号
+10.**BC代付 ：**
 
+```
+"message_detail":{
+"trade_pay_date":"Wed Jan 13 16:27:04 CST 2016",
+"merchant_no":"110119759002",
+"bank_code":"BOC",
+"return_params":"beecloud",
+"notify_datetime":"20162713T162401444",
+"pay_tool":"TRAN",
+"trade_currency":"CNY",
+"category_code":"beecloud",
+"buyer_info":{},
+"is_success":"Y",
+"card_type":"DE",
+"trade_class":"DEFY",
+"biz_trade_no":"bfe1dea75cae4bdcb52c406add16d398",
+"out_trade_no":"bfe1dea75cae4bdcb52c406add16d398",
+"trade_amount":"1",
+"tradeSuccess":true,
+"trade_finish_time":"Wed Jan 13 16:27:04 CST 2016",
+"trade_status":"FINI",
+"trade_pay_time":"Wed Jan 13 16:27:04 CST 2016",
+"trade_no":"20160113100042000010570232",
+"trade_subject":"测试代付",
+"trade_finish_date":"Wed Jan 13 16:27:04 CST 2016"}
+```  
+  
+  *部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  bank_code        | String     | BOC | 中国银行
+  card_type	|	String 	|	DE   |    借记卡=DE;信用卡=CR
+  out\_trade\_no	|	String	|	201509240000000000010|商户订单号 
+  trade_amount	|	String	|	1	|	交易金额
+  trade_status	|	String	|	FINI	|	FINI=交易成功;REFU=交易退款;CLOS=交易关闭，失败
+  trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
+  trade_subject	|	String	|	标题|	测试代付
   
 ## 设置Webhook
 在"控制台->应用->设置->xx支付"中
