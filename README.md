@@ -488,7 +488,6 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 ```
 "message_detail":{
 "trade_pay_date":"Wed Jan 13 16:27:04 CST 2016",
-"merchant_no":"110119759002",
 "bank_code":"BOC",
 "return_params":"beecloud",
 "notify_datetime":"20162713T162401444",
