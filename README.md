@@ -82,10 +82,24 @@ transaction_type| PAY/REFUND  分别代表支付和退款的结果确认
 transaction_id | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no,对于秒支付button为传入的out\_trade\_no
 transaction_fee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
 trade_success | 交易是否成功，目前收到的消息都是交易成功的消息
-message_detail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
+message_detail| {orderId:xxx…..} 从支付渠道方获得的详细结果信息，例如支付的订单号，金额， 商品信息等，详见附录
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
+  
+## 样例代码
+目前BeeCloud提供获取webhook消息的各语言代码样例：  
+[PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
+[.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
+[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/webhook_receiver_example/webhook_receiver.jsp)  
+Python DEMO (coming soon...)
 
-### message_detail样例 
+>请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的读取写法。
+
+
+## 意见反馈
+
+[https://github.com/beecloud/beecloud-webhook/issues](https://github.com/beecloud/beecloud-webhook/issues)
+
+## 附录 - message_detail 样例 
 
 - **支付宝 (ALI)**
 
@@ -511,18 +525,3 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   trade_status	|	String	|	FINI	|	FINI=交易成功;REFU=交易退款;CLOS=交易关闭，失败
   trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
   trade_subject	|	String	|	标题|	测试代付
-
-  
-## 样例代码
-目前BeeCloud提供获取webhook消息的各语言代码样例：  
-[PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
-[.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
-[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/webhook_receiver_example/webhook_receiver.jsp)  
-Python DEMO (coming soon...)
-
->请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的读取写法。
-
-
-## 意见反馈
-
-[https://github.com/beecloud/beecloud-webhook/issues](https://github.com/beecloud/beecloud-webhook/issues)
