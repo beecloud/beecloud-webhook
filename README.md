@@ -2,62 +2,49 @@
 
 ## 简介
 
-通过BeeCloud SDK以及秒支付Button发起的支付和退款，在如下状态发生时：
+Webhook是BeeCloud获得渠道的确认信息后，立刻向客户服务器发送的异步回调。支付，代付，退款成功时，BeeCloud将向用户指定的URL发送HTTP/HTTPS的POST数据请求。
 
-1. **支付交易成功**
-2. **退款成功**
+如果客户需要接收此类消息来实现业务逻辑，需要:
 
-BeeCloud将向用户在BeeCloud的"控制台->设置->Webhook"中指定的URL发送状态数据。用户可以根据该状态数据，结合自身系统内记录的订单信息做相应的处理。
+1. 开通公网可以访问的IP地址(或域名）和端口（如果需要对传输加密，请使用支持HTTPS的URL地址，BeeCloud不要求HTTPS根证书认证）
+2. 在 **控制台->App设置->Webhook** 中设置接收端URL，不同应用可设置不同URL，同一应用能且仅能设置一个测试URL，一个生产URL
+2. 处理POST请求报文，实现业务逻辑
 
->服务器间的交互,不像页面跳转同步通知(REST api中bill的参数return_url指定)可以在页面上显示出来，这种交互方式是通过后台通信来完成的，对用户是不可见的。
-
-
-**! ! ! 重要主要事项 ! ! !** 为了保障服务与交易安全，Webhook的接收方需要验证：
-
-1\. **数字签名是否正确**
-
-> 签证数字签名的目的在于验证Webhook是由BeeCloud发起的，防止黑客向此Webhook接口发送伪造的订单信息。验证签名的方法很简单，只需要验证传入的sign是否与appID + appSecret + timestamp的MD5生成的签名 (32字符十六进制) 相等即可，appID与appSecret存储在客户服务器上，timestamp是Webhook传入的。请参考各Webhook demo参考如何验证数字签名。
-
-2\. **购买的产品与订单金额是否匹配**
-
-> 验证购买的产品与订单金额是否匹配的目的在于防止黑客反编译了iOS或者Android app的代码，将本来比如100元的订单金额改成了1分钱，开发者应该识别这种情况，避免误以为用户已经足额支付。Webhook传入的消息里面应该以某种形式包含此次购买的商品信息，比如title或者optional里面的某个参数说明此次购买的产品是一部iPhone手机，开发者需要在客户服务端去查询自己内部的数据库看看iPhone的金额是否与该Webhook的订单金额一致，仅有一致的情况下，才继续走正常的业务逻辑。如果发现不一致的情况，排除程序bug外，需要去查明原因，防止不法分子对你的app进行二次打包，对你的客户的利益构成潜在威胁。如果发现这样的情况，请及时与我们联系，我们会与客户一起与这些不法分子做斗争。而且即使有这样极端的情况发生，只要按照前述要求做了购买的产品与订单金额的匹配性验证，在你的后端服务器不被入侵的前提下，你就不会有任何经济损失。
-
-
-## 样例代码
-目前BeeCloud提供获取webhook消息的各语言代码样例：  
-[PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
-[.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
-[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/webhook_receiver_example/webhook_receiver.jsp)  
-[Python DEMO with tornado](https://github.com/beecloud/beecloud-python/blob/master/demo/webhook.py)
-
->请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的读取写法。
-
-## 应用场景
-
-在BeeCloud获得渠道的确认信息（包括支付成功，退款成功）后，会通过主动推送的方式将确认消息推送给客户的server。如果客户需要接收此类消息来实现业务逻辑，需要:
-
-1. 开通公网可以访问的IP地址和端口
-2. 接收BeeCloud Webhook服务器发起的HTTP POST请求报文。如果需要对传输加密，请使用支持HTTPS的webhook的url地址。
-
->!!!注意：同一条订单可能会发送多条支付成功的webhook消息，这是由渠道触发的(比如渠道的重试)，同一个订单的重复的支付成功的消息**应该被忽略**。退款同理。
+>服务器间的交互，不像页面跳转同步通知（REST API中bill的参数return_url指定）可以在页面上显示出来，这种交互方式是通过后台通信来完成的，对用户是不可见的。
 
 ## 推送机制
 
-BeeCloud在"收到渠道的确认结果"后的1秒时刻主动向用户server发送消息
+BeeCloud在收到渠道的确认结果后立刻发送Webhook，Webhook只会从如下IP地址发送：
 
-## 推送重试机制
+- 123.57.146.46
+- 182.92.114.175
 
-用户server接收到某条消息时如果未返回字符串"success", BeeCloud将认为此条消息未能被成功处理, 将触发推送重试机制：
+客户服务器接收到某条Webhook消息时如果未返回字符串 **success**, BeeCloud将认为此条消息未能被成功处理, 将触发推送重试机制：
 
-如果用户server一直未能返回字符串"success"，BeeCloud将在"收到渠道的确认结果"后的2秒，4秒，8秒，...，2^17秒（约36小时）时刻重发该条消息；如果在以上的某一时刻，用户server返回了字符串"success"则不再重发该消息 。
+BeeCloud将在2秒，4秒，8秒，...，2^17秒（约36小时）时刻重发；如果在以上任一时刻，BeeCloud收到了 **success**，重试将终止。
 
->你可以理解为:第n次重发距离第n-1重发的时间间隔为2的n次方,其中第0次"重发"为1秒时刻第一次发送消息；某次重发时刻，用户server返回了"success"则停止重发
+## 处理Webhook消息
 
->用户需要能够处理BeeCloud notify接口标准的数据
+请参考各开发语言的Webhook demo学习如何处理Webhook消息。
 
-## 处理消息后给BeeCloud返回结果
+### 第一步：验证数字签名
 
-用户返回"success"字符串给BeeCloud代表-"正确接收并确认了本次状态数据的结果"，其他所有返回都代表需要继续重传本次的状态数据。
+目的在于验证Webhook是由BeeCloud发起的，防止黑客向此Webhook接口发送伪造的订单信息。验证签名需要验证传入的 **sign** 是否与 **App ID + App Secret + timestamp** 的 MD5 生成的签名 (32字符十六进制) 是否相等，**App ID** 与 **App Secret** 存储在客户服务器上，**timestamp** 是Webhook传入的。
+
+### 第二步：过滤重复的Webhook
+
+同一条订单可能会发送多条支付成功的webhook消息，这有可能是由支付渠道本身触发的(比如渠道的重试)，也有可能是BeeCloud的Webhook重试。客户需要根据订单号进行判重，忽略已经处理过的订单号对应的Webhook。
+
+
+### 第三步：验证订单金额
+
+客户需要验证Webhook中的 **transaction_fee** （实际的交易金额）与客户内部系统中的相应订单的金额匹配。
+
+这个验证的目的在于防止黑客反编译了iOS或者Android app的代码，将本来比如100元的订单金额改成了1分钱，应该识别这种情况，避免误以为用户已经足额支付。Webhook传入的消息里面应该以某种形式包含此次购买的商品信息，比如title或者optional里面的某个参数说明此次购买的产品是一部iPhone手机，或者直接根据订单号查询，客户需要在内部数据库里去查询iPhone的金额是否与该Webhook的订单金额一致，仅有一致的情况下，才继续走正常的业务逻辑。如果发现不一致的情况，排除程序bug外，需要去查明原因，防止不法分子对你的app进行二次打包，对你的客户的利益构成潜在威胁。而且即使有这样极端的情况发生，只要按照前述要求做了购买的产品与订单金额的匹配性验证，客户也不会有任何经济损失。
+
+### 第四步：处理业务逻辑和返回
+
+这里就可以完成业务逻辑的处理。最后返回结果。用户返回 **success** 字符串给BeeCloud表示 - **正确接收并处理了本次Webhook**，其他所有返回都代表需要继续重传本次的Webhook请求。
 
 ## 推送接口标准
 
@@ -87,12 +74,12 @@ HTTP Content-type : application/json
 
 key  | value
 ---- | -----
-sign | 服务器端通过计算appID + appSecret + timestamp的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确不返回success即可
+sign | 服务器端通过计算 **App ID + App Secret + timestamp** 的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确不返回success即可
 timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
 channel_type| WX/ALI/UN/KUAIQIAN/JD/BD/YEE/PAYPAL   分别代表微信/支付宝/银联/快钱/京东/百度/易宝/PAYPAL
 sub_channel\_type|  代表以上各个渠道的子渠道，参看字段说明
 transaction_type| PAY/REFUND  分别代表支付和退款的结果确认
-transaction_id | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no,对于秒支付button为传入的out_trade_no
+transaction_id | 交易单号，对应支付请求的bill\_no或者退款请求的refund\_no,对于秒支付button为传入的out\_trade\_no
 transaction_fee | 交易金额，是以分为单位的整数，对应支付请求的total\_fee或者退款请求的refund\_fee
 trade_success | 交易是否成功，目前收到的消息都是交易成功的消息
 message_detail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
@@ -523,14 +510,16 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
   trade_subject	|	String	|	标题|	测试代付
   
-## 设置Webhook
-在"控制台->应用->设置->xx支付"中
+## 样例代码
+目前BeeCloud提供获取webhook消息的各语言代码样例：  
+[PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
+[.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
+[Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/webhook_receiver_example/webhook_receiver.jsp)  
+Python DEMO (coming soon...)
 
-1. 设置并保存Webhook
-2. 点击"验证"按钮，验证你的webhook能否正确处理sign签名验证
+>请注意发送的HTTP头部Content-type为application/json,而非大部分框架自动解析的application/x-www-form-urlencoded格式,可能需要自行读取后解析,注意参考各样例代码中的读取写法。
 
-![webhook-01](http://beeclouddoc.qiniudn.com/webhook-02.png)
 
-## 官方文档地址
+## 意见反馈
 
-BeeCloud Webhook文档的官方GitHub地址是 [https://github.com/beecloud/beecloud-webhook](https://github.com/beecloud/beecloud-webhook)
+[https://github.com/beecloud/beecloud-webhook/issues](https://github.com/beecloud/beecloud-webhook/issues)
