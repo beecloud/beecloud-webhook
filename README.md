@@ -46,7 +46,7 @@ BeeCloud将在2秒，4秒，8秒，...，2^17秒（约36小时）时刻重发；
 
 这里就可以完成业务逻辑的处理。最后返回结果。用户返回 **success** 字符串给BeeCloud表示 - **正确接收并处理了本次Webhook**，其他所有返回都代表需要继续重传本次的Webhook请求。
 
-## 推送接口标准
+## Webhook接口标准
 
 ```python
 HTTP 请求类型 : POST
@@ -54,7 +54,7 @@ HTTP 数据格式 : JSON
 HTTP Content-type : application/json
 ```
 
-## 字段说明
+### 字段说明
 
 
   Key             | Type          | Example
@@ -70,7 +70,7 @@ HTTP Content-type : application/json
   message_detail   | Map(JSON)     | {orderId:xxxx}
   optional        | Map(JSON)     | {"agent_id":"Alice"}
 
-## 参数含义
+### 参数含义
 
 key  | value
 ---- | -----
@@ -85,8 +85,9 @@ trade_success | 交易是否成功，目前收到的消息都是交易成功的�
 message_detail| {orderId:xxx…..} 用一个map代表处理结果的详细信息，例如支付的订单号，金额， 商品信息
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
 
-## message_detail样例 
-1.**支付宝 (ALI):**
+### message_detail样例 
+
+- **支付宝 (ALI)**
 
 ```
 "message_detail":{
@@ -136,7 +137,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   use_coupon  |	String  |  N	|  买家是否使用了红包  （N/Y)
 
 
-2.**银联 (UN)：**
+- **银联 (UN)**
 
 ```
 "message_detail":{
@@ -178,7 +179,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   respMsg    |  String |  Success! | 交易返回信息  Success!  代表成功
   
 
-3.**微信 (WX)：**
+- **微信 (WX)**
 
 ```
 "message_detail":{
@@ -213,7 +214,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
 
-4.**快钱 (KUAIQIAN)：**
+- **快钱 (KUAIQIAN)**
 
 ```
 "message_detail":{
@@ -255,7 +256,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   payAmount    |  String |  10 |  订单实际支付金额
   errCode    |  String |  4 |  错误代码
   
-5.**京东 (JD)：**
+- **京东 (JD)**
 
 ```
 "message_detail":{
@@ -297,7 +298,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   TYPE    |  String |  S |  交易类型编码，S：支付，R：退款 
   
 
-6.**百度 (BD)：**
+- **百度 (BD)**
 
 ```
 "message_detail":{
@@ -337,7 +338,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   pay_type   |  String |  2 |   支付方式,1:余额支付;2:网银支付;3:银行网关支付
    
 
-7.**PayPal (PAYPAL)：**
+- **PayPal (PAYPAL)**
 
 ```
 "message_detail":{
@@ -363,7 +364,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   channel	|	String	|	PAYPAL_SANDBOX	|	PAYPAL沙箱支付或者真实支付
 
 
-8.**易宝网银 (YEE_WEB)：**
+- **易宝网银 (YEE_WEB)**
 
 ```
 "message_detail":{
@@ -403,7 +404,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   r9_BType	|	String	|	2	|	通知类型 1 - 浏览器重定向；2 - 服务器点对点通讯
   
 
-8.**易宝一键支付 (YEE_WAP)：**
+- **易宝一键支付 (YEE_WAP)**
 
 ```
 "message_detail":{
@@ -433,7 +434,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   cardtype	|	Integer	|	2	|	支付卡的类型，1 为借记卡，2 为信用卡
   lastno	|	String	|	8530	|	支付卡卡号后 4 位
   
-9.**易宝点卡支付 (YEE_NOBANKCARD)：**
+- **易宝点卡支付 (YEE_NOBANKCARD)**
 
 ```
 "message_detail":{
@@ -470,7 +471,8 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   p8_cardStatus	|	String	|	0|	卡状态，0代表销卡成功，订单成功，其他为异常
   pb_BalanceAmt	|	String	|	19.8	|	支付余额
   pc_BalanceAct	|	String	|	0111001507010658538	|	余额卡号
-10.**BC代付 ：**
+  
+- **BC代付**
 
 ```
 "message_detail":{
@@ -509,6 +511,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   trade_status	|	String	|	FINI	|	FINI=交易成功;REFU=交易退款;CLOS=交易关闭，失败
   trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
   trade_subject	|	String	|	标题|	测试代付
+
   
 ## 样例代码
 目前BeeCloud提供获取webhook消息的各语言代码样例：  
