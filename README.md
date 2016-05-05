@@ -88,7 +88,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 ## 样例代码
 目前BeeCloud提供获取webhook消息的各语言代码样例：  
 [PHP DEMO](https://github.com/beecloud/beecloud-php/blob/master/demo/webhook.php)  
-[.Net DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
+[.NET DEMO](https://github.com/beecloud/beecloud-dotnet/blob/master/BeeCloudSDKDemo/notify.aspx.cs)  
 [Java DEMO](https://github.com/beecloud/beecloud-java/blob/master/demo/WebRoot/webhook_receiver_example/webhook_receiver.jsp)  
 [Python DEMO](https://github.com/beecloud/beecloud-python/blob/master/demo/webhook.py)
 
