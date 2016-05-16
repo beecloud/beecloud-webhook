@@ -63,7 +63,7 @@ HTTP Content-type : application/json
   timestamp       | Long          | 1426817510111
   channel_type     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL'
   sub_channel_type | String        | 'WX_APP' or 'WX_NATIVE' or 'WX_JSAPI' or 'WX_SCAN' or 'ALI_APP' or 'ALI_SCAN' or 'ALI_WEB' or 'ALI_QRCODE' or 'ALI_OFFLINE_QRCODE' or 'ALI_WAP' or 'UN_APP' or 'UN_WEB' or 'PAYPAL_SANDBOX' or 'PAYPAL_LIVE' or 'JD_WAP' or 'JD_WEB' or 'YEE_WAP' or 'YEE_WEB' or 'YEE_NOBANKCARD' or 'KUAIQIAN_WAP' or 'KUAIQIAN_WEB' or 'BD_APP' or 'BD_WEB' or 'BD_WAP'	
-  transaction_type | String        | 'PAY' or 'REFUND' or 'TRANSFER'
+  transaction_type | String        | 'PAY' or 'REFUND' or 'TRANSFER'（TRANSFER只代表BC代付；支付宝已经把打款业务关闭，所以不会有webhook；微信打款和红包，没有webhook）
   transaction_id   | String        | '201506101035040000001'
   transaction_fee  | Integer       | 1 表示0.01元 (当transaction_type为TRANSFER时无此字段)
   trade_success  | Bool       | true
