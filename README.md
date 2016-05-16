@@ -486,7 +486,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   pb_BalanceAmt	|	String	|	19.8	|	支付余额
   pc_BalanceAct	|	String	|	0111001507010658538	|	余额卡号
   
-- **BC代付**
+- **BC企业打款**
 
 ```
 "message_detail":{
