@@ -356,12 +356,9 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 
 ```
 "message_detail":{
-"app_sign":"f0915474a6d3c6ceb55f89c76694d9a4",
-"timestamp":1441964975409,
 "title":"PayPal payment test",
 "total_fee":1,
 "optional":{"PayPal key2":"PayPal value2","PayPal key1":"PayPal value1"},
-"app_id":"c37d661d-7e61-49ea-96a5-68c34e83db3b",
 "bill_no":"8D876079M42176727KXZKHFQ",
 "channel":"PAYPAL_SANDBOX",
 "access_token":"Bearer A015qoqdOWu7gGpk-1SQxYHrO97rfe18ONMJALm4-m4LGgI",
