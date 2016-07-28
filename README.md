@@ -363,7 +363,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
 "channel":"PAYPAL_SANDBOX",
 "access_token":"Bearer A015qoqdOWu7gGpk-1SQxYHrO97rfe18ONMJALm4-m4LGgI",
 "currency":"USD",
-"tradeSuccess":true}
+"trade_success":true}
 ```
 
 *部分字段含义：*
