@@ -522,3 +522,37 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   trade_status	|	String	|	FINI	|	FINI=交易成功;REFU=交易退款;CLOS=交易关闭，失败
   trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
   trade_subject	|	String	|	标题|	测试代付
+
+- **BC_NATIVE**
+
+```
+"message_detail":{
+"transaction_id":"1006410636201505250163820565",
+"nonce_str":"",
+"bank_type":"CFT",
+"openid":"",
+"fee_type":"CNY",
+"mch_id":"",
+"cash_fee":"1",
+"out_trade_no":"4095601432530130",
+"appid":"",
+"total_fee":"1",
+"trade_type":"NATIVE",
+"result_code":"SUCCESS",
+"time_end":"20150525130218",
+"is_subscribe":"Y",
+"return_code":"SUCCESS"
+}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  transaction_id        | String     | 1006410636201505250163820565 | 渠道交易号
+  time_end    | String  | 20150528103823 | 交易结束时间
+  out\_trade_no	|	String 	|	test_no   |    商家内部交易号
+  total_fee	|	String	|	1	|	商品总价，单位为分
+  cash_fee	|	String	|	1	|	现金付款额
+  return_code   |  String |  SUCCESS |   通信标示
+  result_code    |  String |  SUCCESS |  业务结果
