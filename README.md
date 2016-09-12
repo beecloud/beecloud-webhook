@@ -523,7 +523,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
   trade_subject	|	String	|	标题|	测试代付
 
-- **BC_NATIVE**
+- **BC_NATIVE,BC_JSAPI,BC_WAP**
 
 ```
 "message_detail":{
@@ -556,3 +556,137 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   cash_fee	|	String	|	1	|	现金付款额
   return_code   |  String |  SUCCESS |   通信标示
   result_code    |  String |  SUCCESS |  业务结果
+  trade_type    |  String |  wap,native,jsapi |  业务结果
+  
+- **BC_ALI_QRCODE**
+```
+"message_detail":{
+"gmt_payment":"2016-09-05 11:14:24",
+"trade_status":"TRADE_SUCCESS",
+"buyer_email":"",
+"notify_type":"trade_status_sync",
+"gmt_create":"2016-09-05 11:14:24",
+"sign":"",
+"price":"0.01",
+"notify_time":"2016-09-05 11:14:24",
+"buyer_id":"",
+"quantity":"1",
+"sign_type":"RSA",
+"seller_email":"",
+"discount":"0.00",
+"is_total_fee_adjust":"N",
+"total_fee":"0.01",
+"payment_type":"1",
+"seller_id":"",
+"bc_appid":"",
+"transactionFee":1,
+"out_trade_no":"bcdemo1473045206000",
+"use_coupon":"N",
+"subject":"PHP BC_ALI_QRCODE支付测试",
+"trade_no":"100570018608201609055044123465",
+"tradeSuccess":true
+}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  out_trade_no        | String     | bcdemo1473045206000 | 自定义订单号
+  trade_no    | String  | 100570018608201609055044123465 | 渠道交易号
+  total_fee	|	String	|	0.01	|	商品总价，单位为元
+
+
+- **BC_ALI_SCAN, BC_WX_SCAN**
+```
+"message_detail":{
+"transaction_id":"100570018608201609085047252161",
+"charset":"UTF-8",
+"nonce_str":"1473299066490",
+"bank_type":"CFT",
+"openid":"oMJGHs6zGfvbb118O2iM6qq728p4",
+"out_transaction_id":"4009092001201609083395588114",
+"fee_type":"CNY",
+"mch_id":"100570018608",
+"uuid":"7437e977bb775ff863bf6649297a8fc6",
+"version":"2.0",
+"pay_result":"0",
+"out_trade_no":"201609084000003",
+"appid":"wx290ce4878c94369d",
+"total_fee":"1",
+"trade_type":"pay.weixin.micropay",
+"result_code":"0",
+"attach":"8fd7ab51-9a77-48a3-a537-a7f012e471f5",
+"time_end":"20160908094426",
+"is_subscribe":"N",
+"sign_type":"MD5",
+"status":"0"}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  out_trade_no        | String     | bcdemo1473045206000 | 自定义订单号
+  transaction_id    | String  | 100570018608201609055044123465 | 渠道交易号
+  total_fee	|	String	|	1	|	商品总价，单位为分
+  
+- **BC_GATEWAY,BC_EXPRESS**
+```
+"message_detail":{
+"order_no":"C201609100757505729611425",
+"gmt_create":"2016-09-10 19:57:54",
+"seller_email":"admin@beecloud.cn",
+"sign":"6dc3aa46c724c3f443bd5d8ac6cf67f5",
+"discount":"0.00",
+"body":"线上付款",
+"title":"线上付款",
+"is_success":"T",
+"notify_id":"0071f71e6711413d87eaa72d38023773",
+"notify_type":"WAIT_TRIGGER",
+"tradeSuccess":true,
+"price":"2000.00",
+"total_fee":"2000.00",
+"trade_status":"TRADE_FINISHED",
+"sign_type":"MD5",
+"seller_id":"100000000002164",
+"is_total_fee_adjust":"0",
+"notify_time":"2016-09-10 19:58:31",
+"gmt_payment":"2016-09-10 19:58:31",
+"quantity":"1",
+"gmt_logistics_modify":"2016-09-10 19:58:35",
+"payment_type":"2",
+"transactionFee":"2000.00",
+"trade_no":"101609103784154",
+"seller_actions":"SEND_GOODS"}
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  order_no        | String     | bcdemo1473045206000 | 自定义订单号
+  trade_no    | String  | 100570018608201609055044123465 | 渠道交易号
+  total_fee	|	String	|	2000.00	|	商品总价，单位为元
+  
+  - **BC_APP**
+```
+"messageDetail"{
+"amount":"25.00",
+"transactionFee":"25.00",
+"signature":"6d697026506564e0685323d1d933e7b3",
+"tradeSuccess":true,
+"transId":"20160910194901604",
+"sign":"67f9254843673765c163dd868fa283e3",
+"transDate":"20160910194916",
+"sign_type":"MD5",
+"transStatus":"00000",
+"notify_id":"a3c119d2f9784e10a85539e7caabd476"},
+```
+
+*部分字段含义：*
+ 
+ Key             | 类型           | Example               | 含义
+-------------     | ------------- | -------------         | -------
+  transId        | String     | bcdemo1473045206000 | 自定义订单号
+  amount	|	String	|	2000.00	|	商品总价，单位为元
