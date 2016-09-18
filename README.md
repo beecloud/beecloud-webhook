@@ -62,8 +62,8 @@ HTTP Content-type : application/json
   sign            | String        | 32位小写
   timestamp       | Long          | 1426817510111
   channel_type     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL' or 'BC'
-  sub\_channel\_type | String        | 'WX\_APP' or 'WX\_NATIVE' or 'WX\_JSAPI' or 'WX\_SCAN' or 'ALI\_APP' or 'ALI\_SCAN' or 'ALI\_WEB' or 'ALI\_QRCODE' or 'ALI\_OFFLINE\_QRCODE' or 'ALI\_WAP' or 'UN\_APP' or 'UN\_WEB' or 'PAYPAL\_SANDBOX' or 'PAYPAL\_LIVE' or 'JD\_WAP' or 'JD\_WEB' or 'YEE\_WAP' or 'YEE\_WEB' or 'YEE\_NOBANKCARD' or 'KUAIQIAN\_WAP' or 'KUAIQIAN\_WEB' or 'BD\_APP' or 'BD\_WEB' or 'BD\_WAP' or 'BC\_TRANSFER'	
-  transaction_type | String        | 'PAY' or 'REFUND' or 'TRANSFER'（TRANSFER只代表BC企业打款；支付宝已经把打款业务关闭，所以不会有webhook；微信打款和红包，没有webhook）
+  sub\_channel\_type | String        | 'WX\_APP' or 'WX\_NATIVE' or 'WX\_JSAPI' or 'WX\_SCAN' or 'ALI\_APP' or 'ALI\_SCAN' or 'ALI\_WEB' or 'ALI\_QRCODE' or 'ALI\_OFFLINE\_QRCODE' or 'ALI\_WAP' or 'UN\_APP' or 'UN\_WEB' or 'PAYPAL\_SANDBOX' or 'PAYPAL\_LIVE' or 'JD\_WAP' or 'JD\_WEB' or 'YEE\_WAP' or 'YEE\_WEB' or 'YEE\_NOBANKCARD' or 'KUAIQIAN\_WAP' or 'KUAIQIAN\_WEB' or 'BD\_APP' or 'BD\_WEB' or 'BD\_WAP' or 'BC\_TRANSFER' or 'ALI_TRANSFER'	
+  transaction_type | String        | 'PAY' or 'REFUND' or 'TRANSFER'（TRANSFER只代表BC企业打款和支付宝打款；微信打款和红包，没有webhook）
   transaction_id   | String        | '201506101035040000001'
   transaction_fee  | Integer       | 1 表示0.01元 
   trade_success  | Bool       | true
