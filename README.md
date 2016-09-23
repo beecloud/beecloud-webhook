@@ -523,7 +523,7 @@ optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者
   trade_no	|	String	|	BC代付内部交易	| 20160113100042000010570232
   trade_subject	|	String	|	标题|	测试代付
 
-- **BC_NATIVE,BC_JSAPI,BC_WAP**
+- **BC_NATIVE,BC_WX_JSAPI,BC_WAP**
 
 ```
 "message_detail":{
