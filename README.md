@@ -7,7 +7,8 @@ Webhook是BeeCloud获得渠道的确认信息后，立刻向客户服务器发�
 如果客户需要接收此类消息来实现业务逻辑，需要:
 
 1. 开通公网可以访问的IP地址(或域名）和端口（如果需要对传输加密，请使用支持HTTPS的URL地址，BeeCloud不要求HTTPS根证书认证）
-2. 在 **控制台->App设置->Webhook** 中设置接收端URL，不同应用可设置不同URL，同一应用能且仅能设置一个测试URL，一个生产URL
+2. 在**控制台->应用设置->Webhook** 中设置接收端URL，不同应用可设置不同URL，同一应用能且仅能设置一个测试URL，一个生产URL
+3. 在**控制台->应用设置->基本信息设置**中获取"Master Secret".
 2. 处理POST请求报文，实现业务逻辑
 
 >服务器间的交互，不像页面跳转同步通知（REST API中bill的参数return_url指定）可以在页面上显示出来，这种交互方式是通过后台通信来完成的，对用户是不可见的。
@@ -66,7 +67,7 @@ HTTP Content-type : application/json
 
   Key             | Type          | Example
 -------------     | ------------- | -------------
-  sign            | String        | 32位小写
+  signature            | String        | 32位小写
   timestamp       | Long          | 1426817510111
   channel_type     | String        | 'WX' or 'ALI' or 'UN' or 'KUAIQIAN' or 'JD' or 'BD' or 'YEE' or 'PAYPAL' or 'BC'
   sub\_channel\_type | String        | 'WX\_APP' or 'WX\_NATIVE' or 'WX\_JSAPI' or 'WX\_SCAN' or 'ALI\_APP' or 'ALI\_SCAN' or 'ALI\_WEB' or 'ALI\_QRCODE' or 'ALI\_OFFLINE\_QRCODE' or 'ALI\_WAP' or 'UN\_APP' or 'UN\_WEB' or 'PAYPAL\_SANDBOX' or 'PAYPAL\_LIVE' or 'JD\_WAP' or 'JD\_WEB' or 'YEE\_WAP' or 'YEE\_WEB' or 'YEE\_NOBANKCARD' or 'KUAIQIAN\_WAP' or 'KUAIQIAN\_WEB' or 'BD\_APP' or 'BD\_WEB' or 'BD\_WAP' or 'BC\_TRANSFER' or 'ALI_TRANSFER'	
@@ -81,8 +82,8 @@ HTTP Content-type : application/json
 
 key  | value
 ---- | -----
-sign | 服务器端通过计算 **App ID + App Secret + timestamp** 的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证sign的正确性，不正确不返回success即可
-timestamp | 服务端的时间（毫秒），用以验证sign, MD5计算请参考sign的解释
+signature | 服务器端通过计算 **app\_id + transaction\_id + transaction\_type + channel\_type + transaction\_fee + master\_secret** 的MD5生成的签名(32字符十六进制),请在接受数据时自行按照此方式验证signature的正确性，不正确不返回success即可. 其中master\_secret为用户创建Beecloud App时获取的参数。
+timestamp | 服务端的时间（毫秒）
 channel_type| WX/ALI/UN/KUAIQIAN/JD/BD/YEE/PAYPAL   分别代表微信/支付宝/银联/快钱/京东/百度/易宝/PAYPAL
 sub_channel\_type|  代表以上各个渠道的子渠道，参看字段说明
 transaction_type| PAY/REFUND  分别代表支付和退款的结果确认
