@@ -29,7 +29,15 @@ BeeCloud将在2秒，4秒，8秒，...，2^17秒（约36小时）时刻重发；
 
 ### 第一步：验证数字签名
 
-目的在于验证Webhook是由BeeCloud发起的，防止黑客向此Webhook接口发送伪造的订单信息。验证签名需要验证传入的 **sign** 是否与 **App ID + App Secret + timestamp** 的 MD5 生成的签名 (32字符十六进制) 是否相等，**App ID** 与 **App Secret** 存储在客户服务器上，**timestamp** 是Webhook传入的。
+目的在于验证Webhook是由BeeCloud发起的，防止黑客向此Webhook接口发送伪造的订单信息。Beecloud使用MD5方式进行webhook加密，用户需要使用自己的`master_secret`对参数进行数字签名验证。具体信息如下：  
+
+验证方法 | MD5  
+---- | ----
+BeeCloud签名字段 | **signature**  
+验签key | 用户的**master_secret**  
+待验签参数 | app_id + transaction\_id + transaction\_type + channel\_type + transaction\_fee
+
+用户必须按照上表中“待验签参数”中罗列的参数顺序，将参数连接成字符串，使用master\_secret对参数进行MD5数字签名(32字符十六进制)。比较所得结果与`signature`字段值是否相等。**注意，`signature`中的字母全部为小写**。
 
 ### 第二步：过滤重复的Webhook
 
