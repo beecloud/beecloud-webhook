@@ -77,6 +77,7 @@ HTTP Content-type : application/json
   trade_success  | Bool       | true
   message_detail   | Map(JSON)     | {orderId:xxxx}
   optional        | Map(JSON)     | {"agent_id":"Alice"}
+  channel_transaction_id | String | 'lsafdsfld000001'
 
 ### 参数含义
 
@@ -92,6 +93,7 @@ transaction_fee | 交易金额，是以分为单位的整数，对应支付请�
 trade_success | 交易是否成功，目前收到的消息都是交易成功的消息
 message_detail| {orderId:xxx…..} 从支付渠道方获得的详细结果信息，例如支付的订单号，金额， 商品信息等，详见附录
 optional| 附加参数，为一个JSON格式的Map，客户在发起购买或者退款操作时添加的附加信息
+channel_transaction_id | 渠道订单号
   
 ## 样例代码
 目前BeeCloud提供获取webhook消息的各语言代码样例：  
